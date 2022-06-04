@@ -4,7 +4,14 @@
 
 <div>
   <% @kittens.each do |kitten| %>
-    <%= render kitten %>
+  <div class="card" style="width: 18rem;">
+  <div class="card-header text-center">
+    <%= kitten.name %>
+  </div>
+  <div class="list-group text-center" >
+    Age: <%= kitten.age %>
+  </div>
+</div>
     <p>
       <%= link_to "Show this kitten", kitten %>
     </p>

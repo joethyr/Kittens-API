@@ -16,6 +16,16 @@ class KittensController < ApplicationController
   end
 
   def create
+    @kitten = Kitten.new(kitten_params)
+    respond_to do |format|
+      if @kitten.save
+        format.html { redirect_to kitten_url(@kitten), notice: "kitten was successfully created." }
+        format.json { render :show, status: :created, location: @kitten }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @kitten.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
@@ -31,6 +41,7 @@ class KittensController < ApplicationController
   end
 
   def kitten_params
+    params.require(:kitten).permit(:name, :age, :cuteness, :softness)
   end
 
 end
