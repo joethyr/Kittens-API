@@ -29,6 +29,15 @@ class KittensController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @kitten.update(kitten_params)
+        format.html { redirect_to kitten_url(@kitten), notice: "kitten was successfully created." }
+        format.json { render :show, status: :created, location: @kitten }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @kitten.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
